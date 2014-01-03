@@ -10,6 +10,8 @@
 
   <buildtool_depend>catkin</buildtool_depend>
   <run_depend>simple_message</run_depend>
+  <run_depend>simple_message_bswap</run_depend>
+  <run_depend>simple_message_float64</run_depend>
   <run_depend>industrial_msgs</run_depend>
   <run_depend>industrial_robot_client</run_depend>
   <run_depend>industrial_robot_simulator</run_depend>

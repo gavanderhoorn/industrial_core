@@ -5,11 +5,16 @@ project(simple_message)
 find_package(catkin REQUIRED COMPONENTS roscpp industrial_msgs)
 
 catkin_package(
+    # this pkg (and all variants) depend on these catkin pkgs
     CATKIN_DEPENDS roscpp industrial_msgs
+    # we export the base library (for use by other pkgs)
     LIBRARIES ${PROJECT_NAME}
+    # the base include dir (to be reused by variant pkgs as well)
     INCLUDE_DIRS include
-    # this also gets installed in this pkg's SHARE_DESTINATION
+    # TODO: this also gets installed in this pkg's SHARE_DESTINATION, unwanted
+    #       and unneeded (unless we also install source)
     CFG_EXTRAS simple_messageExports.cmake
+    # TODO: figure out how to export our set of build flags
 )
 
 include_directories(
@@ -22,6 +27,7 @@ include(cmake/simple_messageExports.cmake)
 
 add_definitions(${simple_message_DEFINITIONS})
 
+# build base version of the library
 add_library(${PROJECT_NAME} ${simple_message_SOURCES})
 target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 add_dependencies(${PROJECT_NAME} ${industrial_msgs_EXPORTED_TARGETS})
@@ -37,3 +43,6 @@ install(
 install(
     DIRECTORY include/${PROJECT_NAME}/
     DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION})
+
+# TODO: should source also be installed to SHARE dest? This would allow variant
+#       packages to be build based on an installed base package.
